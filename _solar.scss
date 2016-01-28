@@ -1,0 +1,43 @@
+%proto-span {
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 14px;
+  vertical-align: top;
+}
+%proto-grid {
+  box-sizing: border-box;
+  display: block;
+  font-size: 0;
+  margin: 0 auto;
+}
+
+@mixin gen-grid($col:12,$gut:0) {
+  .grid-#{$col}-#{$gut} {
+    max-width: #{$container};
+    width: 100%;
+    padding-left: calc( 1% * #{gut-w($col,$gut)});
+    padding-left: calc( #{$container} / 100 * #{gut-w($col,$gut)});
+    @extend %proto-grid;
+    
+    @for $i from 1 through $col {
+      @include gen-span($col,$gut,$i);
+    }
+  }
+}
+
+@mixin gen-span($col,$gut,$num:1) {
+  .span-#{$num} {
+    width: (col-w($col,$gut)*$num)+(gut-w($col,$gut)*($num - 1))+0%;
+    margin-right: gut-w($col,$gut)+0%;
+    @extend %proto-span;
+  }
+}
+
+@function col-w($col,$gut) {
+  @return 100/$col/((100+$gut)/100);
+}
+
+@function gut-w($col,$gut) {
+  @return col-w($col,$gut)/100*$gut;
+}
+
