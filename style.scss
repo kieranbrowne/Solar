@@ -1,25 +1,24 @@
 @import "solar";
-$container: 800px;
 
 body {
   margin: 0;
 }
 
-@include gen-grid($col:12,$gut:50);
-@include gen-grid(12,0);
+@include gen-grid($col:12,$gut:20,$cont:calc(100% - 100px));
+@include gen-grid(12,30,800px,'-second');
 
 div[class^=grid] {
-  background-color: rgba(0,0,0,0.2);
-  color: white;
+  background-color: rgba(0,0,0,0.1);
+  color: black;
 }
 div[class^=span] {
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.1);
   margin-bottom: 20px;
   padding: 20px;
   font-family: sans-serif;
 
   > div {
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0,0,0,0.1);
     padding: 20px;
     margin-bottom: 20px;
   }
@@ -32,4 +31,8 @@ div[class^=span] {
       margin-bottom: 0;
     }
   }
+}
+
+.span-3 + .span-3 + .span-3 + .span-3  {
+    background: red;
 }

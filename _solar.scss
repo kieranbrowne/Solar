@@ -1,9 +1,11 @@
+// defaults
 %proto-span {
   box-sizing: border-box;
   display: inline-block;
   font-size: 14px;
   vertical-align: top;
 }
+
 %proto-grid {
   box-sizing: border-box;
   display: block;
@@ -11,25 +13,52 @@
   margin: 0 auto;
 }
 
-@mixin gen-grid($col:12,$gut:0) {
-  .grid-#{$col}-#{$gut} {
-    max-width: #{$container};
+// grid
+@mixin gen-grid($col:12,$gut:0,$cont:100%,$namespace:'') {
+  // .grid-#{$col}-#{$gut} {
+  .grid#{$namespace} {
+    max-width: #{$cont};
     width: 100%;
-    padding-left: calc( 1% * #{gut-w($col,$gut)});
-    padding-left: calc( #{$container} / 100 * #{gut-w($col,$gut)});
+    // padding-left: calc( 1% * #{gut-w($col,$gut)});
+    // padding-left: calc( #{$cont} / 100 * #{gut-w($col,$gut)});
     @extend %proto-grid;
     
+    %gutter {
+      margin-right: gut-w($col,$gut)+0%;
+    }
+    %no-gutter {
+      margin-right: 0;
+    }
     @for $i from 1 through $col {
       @include gen-span($col,$gut,$i);
     }
+    
+    // @include badLasts($col);
+    // extras
+    &.guts {
+      padding-left: gut-w($col,$gut)+0%;
+      padding-right: gut-w($col,$gut)+0%;
+    }
+
+    &:after {
+      // content: '#{dump(tsum(0,0,(12,11,11,4,3,2,2,2,1,1,1,1,1),9))}';
+      content: '#{dump(tsum(0,0,(12,11,10,9,8,7,6,6,5,5,4,4,4,3,3,3,3,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1),12))}';
+      font-size: 20px;
+      color: red;
+    }
   }
+
 }
 
 @mixin gen-span($col,$gut,$num:1) {
   .span-#{$num} {
     width: (col-w($col,$gut)*$num)+(gut-w($col,$gut)*($num - 1))+0%;
-    margin-right: gut-w($col,$gut)+0%;
+    // margin-right: gut-w($col,$gut)+0%;
     @extend %proto-span;
+    @extend %gutter;
+    @media screen and (max-width: 600px) {
+      width: (col-w(6,$gut)*$num)+(gut-w(6,$gut)*($num - 1))+0%;
+    }
   }
 }
 
@@ -38,6 +67,170 @@
 }
 
 @function gut-w($col,$gut) {
-  @return col-w($col,$gut)/100*$gut;
+  @return col-w($col - 1,$gut)/100*$gut;
 }
 
+@function perms($col) {
+  // get all permutations which can equal a single row
+  $sum:();
+  @for $i from 1 through $col {
+    $sum: append($sum, $i);
+  }
+  @return $sum;
+}
+@function sum($list) {
+  // get all permutations which can equal a single row
+  $sum:0;
+  @each $i in $list {
+    $sum: $sum + $i;
+  }
+  @return $sum;
+}
+
+@function range($num,$start:1) {
+  $range: ();
+  @for $i from $start through $num {
+    $range: append($range, $i);
+  }
+  @return $range;
+}
+
+@function intersperse($char,$list) {
+  $out: '';
+  @each $i in $list {
+    $out: $out $char;
+  }
+  @return $out;
+}
+
+@function mapPost($str,$list) {
+  $out: ();
+  @each $x in $list {
+    $out: append($out, #{$str}#{$x}); 
+  }
+  @return $out;
+}
+@function mapPrepend($str,$list) {
+  $out: ();
+  @each $x in $list {
+    $out: append($out, #{$str}#{$x}); 
+  }
+  @return $out;
+}
+@function mapAppend($str,$list) {
+  $out: ();
+  @each $x in $list {
+    $out: append($out, #{$x}#{$str}); 
+  }
+  @return $out;
+}
+
+@mixin lasts($col) {
+  @each $x in mapPrepend('.span-',range(5)) {
+    #{$x} {
+      color: blue;
+    }
+  }
+}
+
+@mixin badLasts($col) {
+  .span-4 + .span-4 + .span-4 ,
+  .span-4 + .span-8 ,
+  .span-8 + .span-4 ,
+  .span-9 + .span-3 ,
+  .span-3 + .span-9 ,
+  .span-6 + .span-6 {
+    margin-right: 0;
+  }
+}
+
+
+@function slice($list, $start:1, $end: length($list)) {
+  $result: ();
+  @for $i from $start through $end {
+    $result: append($result,nth($list,$i));
+  }
+  @return $result;
+}
+
+@function flatten($list) {
+  @if type-of($list) == list {
+    $out: ();
+    @each $i in $list {
+      @if type-of($i) == list {
+        @each $j in flatten($i) {
+          $out: append($out,flatten($j));
+        }
+      } @else {
+        $out: append($out,$i);
+      }
+    }
+    @return $out;
+  } @else {
+    @return $list
+  }
+
+}
+
+@function tsum($sum,$total,$nums,$target,$record:()) {
+  $n: length($nums);
+
+  @if $record == () {
+    @each $i in range($n) {
+      $record: append($record, 0);}}
+
+  @if $total == $target {
+    $solution: ();
+    @each $i in range($n) {
+      @if nth($record,$i) == 1 {
+        $solution: append($solution,nth($nums,$i));}}
+
+    @return $solution;}
+
+  $sols: ();
+  // @warn length($nums);
+  @each $i in range($n,min($sum + 1,length($nums))){
+    @if not ($total + nth($nums,$i) > $target) {
+      @if not ($i>1 and nth($nums,$i)==nth($nums,$i - 1) and nth($record,$i - 1) == 0) {
+        $record: replace-nth($record, $i, 1);
+        $sols: append($sols,tsum($i , $total + nth($nums,$i), $nums, $target, $record));
+        $record: replace-nth($record, $i, 0);
+      }
+    }
+  }
+  // @if length($sols) > 0 {
+  //   @for $i from 1 through length($sols) {
+  //     $sols: replace-nth($sols,$i,flatten(nth($sols,$i)));
+  //   }
+  // }
+  @return $sols;
+}
+
+@function replace-nth($list, $index, $value) {
+  $out: ();
+  $result: ();
+  $index: if($index < 0, length($list) + $index + 1, $index);  
+
+  @for $i from 1 through length($list) {
+	@if $i == $index {
+	  $result: append($result, $value);
+	}
+  
+	@else {
+	  $result: append($result, nth($list, $i));
+	} 
+  }
+  @return $result;
+}
+
+@function dump($list) {
+  $out: '';
+  @each $i in $list {
+    @if type-of($i) == list {
+      $out: $out ',[' dump($i) ']';
+    } @else {
+      $out: $out ',' $i;
+    }
+  }
+  @return $out;
+}

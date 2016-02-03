@@ -7,7 +7,26 @@
 </head>
 <body>
 
-  <div class="grid-12-50">
+  <div class="grid guts">
+
+    <div class="span-6">Amet totam explicabo tenetur iste aperiam assumenda similique est? Laborum soluta eligendi asperiores minima magni!</div>
+
+    <div class="span-6">Amet totam explicabo tenetur iste aperiam assumenda similique est? Laborum soluta eligendi asperiores minima magni!</div>
+
+
+    <div class="span-3">Adipisicing facere recusandae voluptatibus minus voluptate possimus. Officiis odio dignissimos atque tempore nemo debitis vel.</div>
+
+    <div class="span-9">
+      Sit itaque officia voluptatibus accusamus quas iure obcaecati est. Modi pariatur blanditiis.
+    </div>
+
+    <div class="span-12">
+      Sit itaque officia voluptatibus accusamus quas iure obcaecati est. Modi pariatur blanditiis.
+    </div>
+  </div>
+
+
+  <div class="grid-second">
 
     <div class="span-6">Amet totam explicabo tenetur iste aperiam assumenda similique est? Laborum soluta eligendi asperiores minima magni!</div>
 
@@ -37,8 +56,6 @@
     <div class="span-12">Sit ea eos cumque voluptates ullam aperiam voluptate quisquam delectus repudiandae. Consequuntur eaque nesciunt voluptas!</div>
 
   </div>
-
-
   <?/*O('div.grid-12-50>div.span-6*6')*/?>
 
 </body>
