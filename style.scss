@@ -1,38 +1,66 @@
 @import "solar";
 
+
+html {
+  font-size: 62.5%;
+}
 body {
+  font-size: 1.6rem;
   margin: 0;
+  * {
+    font-family: 'Inconsolata', monospace;
+  }
+}
+h1 {
+  color: rgb(229,129,139);
 }
 
-@include gen-grid($col:12,$gut:20,$cont:calc(100% - 100px));
-@include gen-grid(12,30,800px,'-second');
+p {
+  color: rgb(88,99,111);
+}
+
+@include baseline(6px); // vertical grid
+@include gen-grid($col:12,$gut:20,$cont:1200px);
+@include gen-grid(12,0,100%,'-base');
+
+.grid-base {
+  position: absolute;
+  .span-12 {
+    display: block !important;
+    height: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(230,230,230);
+  }
+}
 
 div[class^=grid] {
-  background-color: rgba(0,0,0,0.1);
+  //background-color: rgba(0,0,0,0.1);
   color: black;
+  // background-color: rgb(245,245,245);
+  z-index: -2;
 }
 div[class^=span] {
-  background-color: rgba(0,0,0,0.1);
   margin-bottom: 20px;
-  padding: 20px;
   font-family: sans-serif;
-
-  > div {
-    background-color: rgba(0,0,0,0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-
-  &.span-7 {
-    background: none !important;
-    padding: 0;
-
-    > div:last-of-type {
-      margin-bottom: 0;
-    }
+  font-size: 1rem;
+  // border-right: 1px dashed rgba(0,0,0,0.2);
+  // border-left: 1px dashed rgba(0,0,0,0.2);
+  min-height: 100%;
+  padding-left: unit(4);
+  border-right: 1px dashed rgba(0,0,0,0.2);
+  border-left: 1px dashed rgba(0,0,0,0.2);
+  // background-color: rgb(245,245,245);
+  p {
+    width: 80%;
   }
 }
+.row [class^=span]:before {
+  border-right: 1px dashed rgba(0,0,0,0.2);
+  border-left: 1px dashed rgba(0,0,0,0.2);
+  background-color: rgb(245,245,245);
+  // content: '';
+}
 
-.span-3 + .span-3 + .span-3 + .span-3  {
-    background: red;
+.row [class^=span]:last-of-type{
+  // border-right: none;
 }
