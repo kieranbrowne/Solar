@@ -13,10 +13,12 @@ body {
 }
 h1 {
   color: rgb(229,129,139);
+  font-weight: 100;
 }
 
 p {
   color: rgb(88,99,111);
+  font-weight: 100;
 }
 
 @include baseline(6px); // vertical grid
@@ -27,8 +29,8 @@ p {
   position: absolute;
   .span-12 {
     display: block !important;
-    height: 10px;
-    margin-bottom: 10px;
+    height: 5px;
+    margin-bottom: 5px;
     background-color: rgb(230,230,230);
   }
 }

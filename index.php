@@ -55,17 +55,17 @@
 
     <div class="row">
       <div class="span-3">
-        <h1>Amet explicabo.</h1>
+        <h1>Amej explicabo.</h1>
         <p>
           Amet totam explicabo tenetur iste aperiam assumenda similique est? Laborum soluta eligendi asperiores minima magni!
         </p>
       </div>
       
       <div class="span-3">
-        <h1>Lorem vero optio iste.</h1>
         <p>
-          Amet totam explicabo tenetur iste aperiam assumenda similique est? Laborum soluta eligendi asperiores minima magni!
+          Amet totam explicabo tenetur iste apppiam assumenda similique est? Laborum soluta eligendi asperiores minima magni!
         </p>
+        <h1>Lorem vero optio iste.</h1>
       </div>
       
       <div class="span-6">

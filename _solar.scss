@@ -65,9 +65,24 @@
   @return $n*$unit;
 }
 @mixin baseline($unit: 5px) {
-  @include sizer(h1,8,8,2,9);
-  @include sizer(p,3,4,1);
+  @include newer(h1,8,8);
+  @include newer(p,3,4);
 }
+
+@mixin newer($selector:p,$font-size:3,$line-height:4, $baseline:$line-height, $unit:5px) {
+  // $shift: ($line-height - $font-size) / 2;
+  $shift: ((1.4 / 8) * $font-size);
+  $shift: $shift + (($line-height - $font-size) / 2);
+  #{$selector} {
+    margin: 0;
+    padding: 0;
+    font-size: $font-size * $unit;
+    line-height: ($line-height) * $unit;
+    margin-top: ($baseline - $line-height + $shift) * $unit;
+    margin-bottom: - $shift * $unit;
+  }
+}
+
 
 @mixin sizer($selector:p, $font-size:3, $line-height:4, $baseline:1, $topper:0, $unit:5px) {
   #{$selector} {
@@ -80,7 +95,6 @@
     margin-top: $topper * $unit !important;
   }
 }
-
 
 @mixin gen-span($col,$gut,$num:1) {
   .span-#{$num} {
