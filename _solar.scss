@@ -17,6 +17,9 @@
 
 %proto-row {
   position: relative;
+  display: flex;
+  align-items: stretch;
+
   [class^=span-]:last-of-type {
     margin-right: 0;
   }
@@ -64,13 +67,20 @@
 @function u($n,$u:5px) {
   @return $n*$unit;
 }
-@mixin baseline($unit: 5px) {
-  @include newer(h1,8,8);
-  @include newer(p,3,4);
-}
 
-@mixin newer($selector:p,$font-size:3,$line-height:4, $baseline:$line-height, $unit:5px) {
-  // $shift: ($line-height - $font-size) / 2;
+@mixin baseline(
+  $selector: p,
+  $font-size: 3,
+  $line-height: 4,
+  $baseline: $line-height,
+  $post: 0,
+  $unit: 5px
+) {
+
+  @if not unitless($font-size) {
+    $font-size: $font-size / $unit;
+  }
+
   $shift: ((1.4 / 8) * $font-size);
   $shift: $shift + (($line-height - $font-size) / 2);
   #{$selector} {
@@ -79,7 +89,8 @@
     font-size: $font-size * $unit;
     line-height: ($line-height) * $unit;
     margin-top: ($baseline - $line-height + $shift) * $unit;
-    margin-bottom: - $shift * $unit;
+    margin-bottom: ($post - $shift) * $unit;
+
   }
 }
 

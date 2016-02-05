@@ -54,40 +54,34 @@
   <div class="grid guts">
 
     <div class="row">
-      <div class="span-3">
-        <h1>Amej explicabo.</h1>
+      
+      <div class="span-4">
+        <h2>&#9636;</h2><h1>Horizontal</h1>
+        <p>
+          Amet totam explicabo tenetur iste aperiam assumenda similique est? Laborum soluta eligendi asperiores minima magni!
+        </p>
+        <ul>
+          <li>Test</li>
+          <li>Test</li>
+          <li>Test</li>
+        </ul>
+      </div>
+      
+      <div class="span-4">
+        <h2>&#9675;</h2><h1>Solar</h1>
         <p>
           Amet totam explicabo tenetur iste aperiam assumenda similique est? Laborum soluta eligendi asperiores minima magni!
         </p>
       </div>
-      
-      <div class="span-3">
+
+      <div class="span-4">
+        <h2>&#9637;</h2><h1>Vertical</h1>
         <p>
           Amet totam explicabo tenetur iste apppiam assumenda similique est? Laborum soluta eligendi asperiores minima magni!
         </p>
-        <h1>Lorem vero optio iste.</h1>
       </div>
-      
-      <div class="span-6">
-        <h1>Sit obcaecati blanditiis.</h1>
-        <p>
-          Amet totam explicabo tenetur iste aperiam assumenda similique est? Laborum soluta eligendi asperiores minima magni!
-        </p>
-      </div>
+
     </div>
-
-
-    <div class="row">
-      <div class="span-3">
-        <h1>Elit cumque officia.</h1>
-        <p>
-          Amet totam explicabo tenetur iste aperiam assumenda similique est? Laborum soluta eligendi asperiores minima magni!
-        </p>
-      </div>
-    </div>
-  </div>
-
-
   <?/*O('div.grid>div.span-6*6')*/?>
 
 </body>

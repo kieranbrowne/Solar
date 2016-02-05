@@ -11,19 +11,25 @@ body {
     font-family: 'Inconsolata', monospace;
   }
 }
-h1 {
+h1 ,
+h2 {
   color: rgb(229,129,139);
   font-weight: 100;
+  text-align: center;
 }
 
+li ,
 p {
   color: rgb(88,99,111);
   font-weight: 100;
 }
 
-@include baseline(6px); // vertical grid
 @include gen-grid($col:12,$gut:20,$cont:1200px);
 @include gen-grid(12,0,100%,'-base');
+
+@include baseline(p,3,4);
+@include baseline(h2,50px, 5, 20);
+@include baseline(h1,15px, 8, 8);
 
 .grid-base {
   position: absolute;
@@ -31,7 +37,7 @@ p {
     display: block !important;
     height: 5px;
     margin-bottom: 5px;
-    background-color: rgb(230,230,230);
+    background-color: rgba(0,0,0,0.025);
   }
 }
 
@@ -48,21 +54,13 @@ div[class^=span] {
   // border-right: 1px dashed rgba(0,0,0,0.2);
   // border-left: 1px dashed rgba(0,0,0,0.2);
   min-height: 100%;
-  padding-left: unit(4);
   border-right: 1px dashed rgba(0,0,0,0.2);
   border-left: 1px dashed rgba(0,0,0,0.2);
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgba(0,0,0,0.025);
   // background-color: rgb(245,245,245);
   p {
-    width: 80%;
+    // width: 80%;
   }
-}
-.row [class^=span]:before {
-  border-right: 1px dashed rgba(0,0,0,0.2);
-  border-left: 1px dashed rgba(0,0,0,0.2);
-  background-color: rgb(245,245,245);
-  // content: '';
-}
-
-.row [class^=span]:last-of-type{
-  // border-right: none;
 }
