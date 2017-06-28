@@ -1,43 +1,69 @@
 @import "solar";
 
-
-html {
-  font-size: 62.5%;
+:root {
+  font-size: calc( 16px );
 }
+
 body {
-  font-size: 1.6rem;
   margin: 0;
+
   * {
-    font-family: 'Inconsolata', monospace;
+    font-family: sans-serif;
   }
 }
+
 h1 ,
 h2 {
-  color: rgb(229,129,139);
-  font-weight: 100;
+  font-weight: 900;
   text-align: center;
+  
 }
 
 li ,
 p {
-  color: rgb(88,99,111);
-  font-weight: 100;
+  font-weight: 400;
+  text-align: center;
 }
 
-@include gen-grid($col:12,$gut:20,$cont:1200px);
-@include gen-grid(12,0,100%,'-base');
+$margin: 1rem;
+$grid: (
+  columns: 12,
+  gutter: 2.5rem,
+  container: calc(100vw - #{$margin*2}),
+  namespace: ""
+);
 
-@include baseline(p,3,4);
-@include baseline(h2,50px, 5, 20);
-@include baseline(h1,15px, 8, 8);
+@include gen-grid($grid);
 
-.grid-base {
-  position: absolute;
-  .span-12 {
-    display: block !important;
-    height: 5px;
-    margin-bottom: 5px;
+p {
+  @include baseline(1.2rem,1.5rem,3rem,0,1.6);
+}
+h2 {
+  @include baseline(3rem,4.5rem,10rem);
+}
+h1 {
+  @include baseline(2rem,4.5rem);
+}
+
+.grid.display {
+
+  position: fixed;
+  left: $margin;
+
+  .col-1 {
+    height: 100vh;
     background-color: rgba(0,0,0,0.025);
+    background-color: rgba(000,00,200,0.08);
+  }
+}
+.grid.display.baseline {
+
+  .col-12 {
+    height: 1.5rem;
+    margin-bottom: 1.5rem;
+    background-color: rgba(200,00,200,0.08);
+    &:nth-of-type(2n) {
+    }
   }
 }
 
@@ -45,7 +71,7 @@ div[class^=grid] {
   //background-color: rgba(0,0,0,0.1);
   color: black;
   // background-color: rgb(245,245,245);
-  z-index: -2;
+  // z-index: -2;
 }
 div[class^=span] {
   margin-bottom: 20px;
