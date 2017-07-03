@@ -69,7 +69,8 @@ $ratio: 1.4 // cap height : descender
 
 @mixin gen-col($grid-def,$num:1) {
   .col#{map-get($grid-def,namespace)}-#{$num} {
-    width: col-width($grid-def,$num);
+    max-width: col-width($grid-def,$num);
+    width: col-width(map-merge($grid-def,(container:100%)),$num);
     margin-left: map-get($grid-def,gutter);
     font-size: 1rem;
 
@@ -88,6 +89,11 @@ $ratio: 1.4 // cap height : descender
 
 @mixin gen-push($grid-def,$num:1) {
   [class*="col-"].col#{map-get($grid-def,namespace)}-push-#{$num} {
-    margin-left: col-width($grid-def,$num,1);
+    margin-left: col-width($grid-def,$num,2);
+    //width: col-width(map-merge($grid-def,(container:100%)),$num);
+
+    @media screen and (max-width: #{map-get($grid-def,container)}) {
+      margin-left: col-width(map-merge($grid-def,(container:100%)),$num,2);
+    }
   }
 }

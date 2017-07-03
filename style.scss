@@ -1,70 +1,108 @@
 @import "solar";
 
+$margin: 0rem;
+$grid: (
+  columns: 12,
+  gutter: 1rem,
+  container: 800px,
+  namespace: ""
+);
+
+@include gen-grid($grid);
+
 :root {
   font-size: calc( 16px );
 }
 
 body {
   margin: 0;
+  // background-color: rgb(240,240,250);
+  // font-family: monospace;
+  font-family: sans-serif;
+}
 
-  * {
-    font-family: sans-serif;
+@for $i from 1 through 20 {
+  .height-#{$i} {
+    // height: col-width($grid,$i);
+    height: $i*1rem;
+    margin-bottom: 1rem;
+    float: left;
+    .boxed {
+      // height: calc(#{col-width($grid,$i)} - 1rem*2);
+      height: $i*1rem - 2rem;
+    }
   }
 }
 
-h1 ,
-h2 {
-  font-weight: 900;
-  text-align: center;
-  
+
+h2.overlined {
+  height: 1rem*2;
+  line-height: 1rem*2;
+  // border-top: 1px solid grey;
+  box-shadow: 0 -1px 0 0 grey;
+  font-size: .8rem;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 0;
+  box-sizing: border-box;
 }
 
-li ,
-p {
-  font-weight: 400;
-  text-align: center;
+.boxed {
+    box-shadow: 0 0 0px 1px black;
+  box-sizing: border-box;
+  padding: map-get($grid,gutter);
+
+  code ,
+  p {
+    display: block;
+    @include baseline(.9rem,1rem);
+    letter-spacing: 1px;;
+  }
 }
 
-$margin: 1rem;
-$grid: (
-  columns: 12,
-  gutter: 2.5rem,
-  container: calc(100vw - #{$margin*2}),
-  namespace: ""
-);
+.block {
+  padding: 1rem*2 0;
+}
 
-@include gen-grid($grid);
 
-p {
-  @include baseline(1.2rem,1.5rem,3rem,0,1.6);
-}
-h2 {
-  @include baseline(3rem,4.5rem,10rem);
-}
-h1 {
-  @include baseline(2rem,4.5rem);
-}
 
 .grid.display {
 
   position: fixed;
-  left: $margin;
+  z-index: -1;
+  left: 50%;
+  transform: translate(-50%,0);
+
 
   .col-1 {
     height: 100vh;
-    background-color: rgba(0,0,0,0.025);
-    background-color: rgba(000,00,200,0.08);
+    // background-color: rgba(0,0,0,0.025);
+    // background-color: rgba(000,00,200,0.08);
+    box-shadow: 0 0 0px 1px rgb(220,220,220);
   }
 }
 .grid.display.baseline {
+  position: absolute;
 
   .col-12 {
-    height: 1.5rem;
-    margin-bottom: 1.5rem;
-    background-color: rgba(200,00,200,0.08);
+    height: 1rem;
     &:nth-of-type(2n) {
+    background-color: rgba(0,0,0,0.03);
+      // box-shadow: 0 0 0px 1px rgb(220,220,220);
     }
   }
+}
+
+.header {
+  padding: 0 map-get($grid,gutter);
+  line-height: 1rem*5;
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
+  background: white;
+  font-style: italic;
+  background: black;
+  color: white;
 }
 
 div[class^=grid] {
